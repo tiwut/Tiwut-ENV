@@ -24,6 +24,7 @@ After building, run the executable:
 ```sh
 ./tiwut-env
 ```
+---
 
 ## Install
 ```sh
