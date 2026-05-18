@@ -1,0 +1,92 @@
+[
+  {
+    "name": "Portal",
+    "exec": "/usr/libexec/xdg-desktop-portal-gtk",
+    "icon": "applications-system-symbolic",
+    "terminal": "false"
+  },
+  {
+    "name": "Antigravity - URL Handler",
+    "exec": "/usr/share/antigravity/antigravity --open-url %U",
+    "icon": "antigravity",
+    "terminal": "false"
+  },
+  {
+    "name": "Antigravity",
+    "exec": "/usr/share/antigravity/antigravity %F",
+    "icon": "antigravity",
+    "terminal": "false"
+  },
+  {
+    "name": "Zutty",
+    "exec": "zutty",
+    "icon": "zutty",
+    "terminal": "false"
+  },
+  {
+    "name": "Access Prompt",
+    "exec": "/usr/libexec/gcr-prompter",
+    "icon": "security-medium",
+    "terminal": "false"
+  },
+  {
+    "name": "View file",
+    "exec": "/usr/bin/gcr-viewer",
+    "icon": "",
+    "terminal": "false"
+  },
+  {
+    "name": "Firefox ESR",
+    "exec": "/usr/lib/firefox-esr/firefox-esr %u",
+    "icon": "firefox-esr",
+    "terminal": "false"
+  },
+  {
+    "name": "Icon Browser",
+    "exec": "yad-icon-browser",
+    "icon": "yad",
+    "terminal": "false"
+  },
+  {
+    "name": "Geoclue Demo agent",
+    "exec": "/usr/libexec/geoclue-2.0/demos/agent",
+    "icon": "mark-location-symbolic",
+    "terminal": "false"
+  },
+  {
+    "name": "Oracle VirtualBox",
+    "exec": "VirtualBox %U",
+    "icon": "virtualbox",
+    "terminal": "false"
+  },
+  {
+    "name": "Oracle VirtualBox",
+    "exec": "VirtualBoxVM %U",
+    "icon": "virtualbox",
+    "terminal": "false"
+  },
+  {
+    "name": "Google Chrome",
+    "exec": "/usr/bin/google-chrome-stable %U",
+    "icon": "google-chrome",
+    "terminal": "false"
+  },
+  {
+    "name": "Google Chrome",
+    "exec": "/usr/bin/google-chrome-stable %U",
+    "icon": "google-chrome",
+    "terminal": "false"
+  },
+  {
+    "name": "Python (v3.13)",
+    "exec": "/usr/bin/python3.13",
+    "icon": "/usr/share/pixmaps/python3.13.xpm",
+    "terminal": "true"
+  },
+  {
+    "name": "Android Studio",
+    "exec": ""/home/tiwut/Desktop/APPs/android-studio/bin/studio" %f",
+    "icon": "/home/tiwut/Desktop/APPs/android-studio/bin/studio.svg",
+    "terminal": "false"
+  }
+]

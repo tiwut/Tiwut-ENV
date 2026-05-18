@@ -1,0 +1,1 @@
+/usr/bin/c++ -Wl,--dependency-file=CMakeFiles/tiwut-env.dir/link.d "CMakeFiles/tiwut-env.dir/main.cpp.o" -o tiwut-env  -lwayland-server
