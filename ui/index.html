@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tiwut-ENV Desktop</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="wallpaper"></div>
+    <div class="top-bar glass">
+        <div class="top-left">
+            <span class="active-app">Tiwut-ENV</span>
+        </div>
+        <div class="top-center">
+            <span id="clock" class="clock">10:00 AM</span>
+        </div>
+        <div class="top-right">
+            <div class="status-icon wifi"></div>
+            <div class="status-icon battery"></div>
+        </div>
+    </div>
+    <div id="app-menu" class="app-menu glass-heavy hidden">
+        <div class="search-bar">
+            <input type="text" placeholder="Search applications...">
+        </div>
+        <div class="app-grid">
+            <div class="app-item"><div class="app-icon terminal"></div><span>Terminal</span></div>
+            <div class="app-item"><div class="app-icon browser"></div><span>Browser</span></div>
+            <div class="app-item"><div class="app-icon files"></div><span>Files</span></div>
+            <div class="app-item"><div class="app-icon settings"></div><span>Settings</span></div>
+            <div class="app-item"><div class="app-icon editor"></div><span>Editor</span></div>
+            <div class="app-item"><div class="app-icon music"></div><span>Music</span></div>
+        </div>
+    </div>
+    <div id="window-layer" class="window-layer"></div>
+    <div class="dock-container">
+        <div class="dock glass">
+            <div class="dock-item launcher" id="launcher-btn" title="App Menu"></div>
+            <div class="dock-separator"></div>
+            <div class="dock-item terminal active" title="Terminal"></div>
+            <div class="dock-item browser" title="Browser"></div>
+            <div class="dock-item files" title="Files"></div>
+            <div class="dock-item settings" title="Settings"></div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
