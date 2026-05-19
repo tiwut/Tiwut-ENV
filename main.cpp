@@ -55,6 +55,16 @@ struct Server {
     wl_listener cursor_motion_absolute;
     wl_listener cursor_button;
     wl_listener cursor_axis;
+    wl_list outputs;
+};
+
+struct Output {
+    wl_list link;
+    Server* server;
+    wlr_output* wlr_out;
+    wl_listener frame;
+    wl_listener request_state;
+    wl_listener destroy;
 };
 
 struct View {
@@ -122,24 +132,68 @@ static void server_new_xdg_surface(wl_listener* listener, void* data) {
     }
 }
 
+static void output_frame(wl_listener* listener, void* data) {
+    Output* output = wl_container_of(listener, output, frame);
+    wlr_scene* scene = output->server->scene;
+    
+    wlr_scene_output* scene_output = wlr_scene_get_scene_output(scene, output->wlr_out);
+    if (scene_output == nullptr) return;
+
+    wlr_scene_output_commit(scene_output, NULL);
+
+    struct timespec now;
+    clock_gettime(CLOCK_MONOTONIC, &now);
+    wlr_scene_output_send_frame_done(scene_output, &now);
+}
+
+static void output_request_state(wl_listener* listener, void* data) {
+    Output* output = wl_container_of(listener, output, request_state);
+    wlr_output_event_request_state* event = static_cast<wlr_output_event_request_state*>(data);
+    wlr_output_commit_state(output->wlr_out, event->state);
+}
+
+static void output_destroy(wl_listener* listener, void* data) {
+    Output* output = wl_container_of(listener, output, destroy);
+    wl_list_remove(&output->frame.link);
+    wl_list_remove(&output->request_state.link);
+    wl_list_remove(&output->destroy.link);
+    wl_list_remove(&output->link);
+    delete output;
+}
+
 static void server_new_output(wl_listener* listener, void* data) {
     Server* server = wl_container_of(listener, server, new_output);
-    wlr_output* wlr_output = static_cast<struct wlr_output*>(data);
+    wlr_output* wlr_out = static_cast<struct wlr_output*>(data);
 
-    wlr_output_init_render(wlr_output, server->allocator, server->renderer);
+    wlr_output_init_render(wlr_out, server->allocator, server->renderer);
     
     wlr_output_state state;
     wlr_output_state_init(&state);
     wlr_output_state_set_enabled(&state, true);
     
-    wlr_output_mode* mode = wlr_output_preferred_mode(wlr_output);
+    wlr_output_mode* mode = wlr_output_preferred_mode(wlr_out);
     if (mode != nullptr) wlr_output_state_set_mode(&state, mode);
     
-    wlr_output_commit_state(wlr_output, &state);
+    wlr_output_commit_state(wlr_out, &state);
     wlr_output_state_finish(&state);
 
-    wlr_output_layout_add_auto(server->output_layout, wlr_output);
-    wlr_scene_output_create(server->scene, wlr_output);
+    wlr_output_layout_add_auto(server->output_layout, wlr_out);
+    wlr_scene_output_create(server->scene, wlr_out);
+    
+    Output* output = new Output();
+    output->server = server;
+    output->wlr_out = wlr_out;
+    
+    output->frame.notify = output_frame;
+    wl_signal_add(&wlr_out->events.frame, &output->frame);
+    
+    output->request_state.notify = output_request_state;
+    wl_signal_add(&wlr_out->events.request_state, &output->request_state);
+    
+    output->destroy.notify = output_destroy;
+    wl_signal_add(&wlr_out->events.destroy, &output->destroy);
+    
+    wl_list_insert(&server->outputs, &output->link);
 }
 
 static void server_new_input(wl_listener* listener, void* data) {
@@ -233,6 +287,7 @@ int main() {
     ipcThread.detach();
 
     Server server = {0};
+    wl_list_init(&server.outputs);
     server.display = wl_display_create();
     server.backend = wlr_backend_autocreate(wl_display_get_event_loop(server.display), nullptr);
     server.renderer = wlr_renderer_autocreate(server.backend);
