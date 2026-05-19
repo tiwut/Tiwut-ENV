@@ -10,6 +10,8 @@
 
 #define namespace _namespace
 #define class _class
+#define static
+
 extern "C" {
 #include <wlr/backend.h>
 #include <wlr/render/allocator.h>
@@ -26,6 +28,8 @@ extern "C" {
 #include <wlr/util/log.h>
 #include <xkbcommon/xkbcommon.h>
 }
+
+#undef static
 #undef namespace
 #undef class
 
@@ -106,7 +110,7 @@ static void server_new_xdg_surface(wl_listener* listener, void* data) {
         View* view = new View();
         view->server = server;
         view->toplevel = xdg_surface->toplevel;
-        view->scene_tree = wlr_scene_xdg_surface_create(&server->scene_layout->tree, xdg_surface);
+        view->scene_tree = wlr_scene_xdg_surface_create(server->scene_layout, xdg_surface);
         view->scene_tree->node.data = view;
 
         view->map.notify = xdg_toplevel_map;
