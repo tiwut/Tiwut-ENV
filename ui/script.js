@@ -79,9 +79,13 @@ function createWindow(title, url, iconClass) {
         </div>
     `;
     windowLayer.appendChild(win);
+    document.querySelectorAll('.os-window').forEach(w => w.classList.remove('active'));
+    win.classList.add('active');
     win.addEventListener('mousedown', () => {
         highestZIndex++;
         win.style.zIndex = highestZIndex;
+        document.querySelectorAll('.os-window').forEach(w => w.classList.remove('active'));
+        win.classList.add('active');
     });
     const closeBtn = win.querySelector('.btn.close');
     const minBtn = win.querySelector('.btn.minimize');

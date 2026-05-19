@@ -1,3 +1,0 @@
-/home/tiwut/Documents/Dev/Hyprland/Tiwut-ENV/build/CMakeFiles/tiwut-env.dir
-/home/tiwut/Documents/Dev/Hyprland/Tiwut-ENV/build/CMakeFiles/edit_cache.dir
-/home/tiwut/Documents/Dev/Hyprland/Tiwut-ENV/build/CMakeFiles/rebuild_cache.dir
